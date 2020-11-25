@@ -1,3 +1,3 @@
 **URUCHAMIANIE**
 
-python launcher.py
+python launcher.py lub dwuklikiem na pliku launcher.py
