@@ -12,6 +12,7 @@ from api.API import API
 
 version = "0.1"
 
+
 class Game:
     def __init__(self, cgi_status: bool, map_name: str, path_1: str, path_2: str):
         self.__is_cgi_enabled = cgi_status
