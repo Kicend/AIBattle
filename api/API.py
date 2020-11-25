@@ -1,7 +1,5 @@
 from api import errors
 
-version = "0.1"
-
 
 class API:
     def __init__(self, game_instance, units_info: list, team: int):

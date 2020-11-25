@@ -10,8 +10,6 @@ from game.units.robot import Robot
 from game.units.turret import Turret
 from api.API import API
 
-version = "0.1"
-
 
 class Game:
     def __init__(self, cgi_status: bool, map_name: str, path_1: str, path_2: str):
