@@ -1,3 +1,4 @@
+from random import randint
 from api import errors
 
 
@@ -41,7 +42,8 @@ class API:
             target = self.__game.get_field_info(coordinates)
             if target.team != self.__team and \
                self.__game.get_distance(attacker.coordinates, target.coordinates) <= attacker.attack_range:
-                target.hp -= self.__units_registry[uid].attack()
+                if not randint(0, 99) <= target.miss_chance:
+                    target.hp -= self.__units_registry[uid].attack() * (1 - target.defence/100)
                 if target.hp <= 0:
                     target.status = "dead"
                     if hasattr(target, "after_death_symbol"):
@@ -60,4 +62,4 @@ class API:
                 raise errors.AttackError(1)
 
     def defend(self, uid: str):
-        pass
+        self.__units_registry[uid].defend()
