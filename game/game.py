@@ -75,6 +75,18 @@ class Game:
         else:
             return y_distance
 
+    def control_unit_center(self, player: int):
+        if player == 1:
+            for unit in self.player_1_units:
+                if hasattr(unit, "defend"):
+                    if unit.defence_turn <= unit.defence_max_turn:
+                        unit.defence_turn += 1
+        else:
+            for unit in self.player_2_units:
+                if hasattr(unit, "defend"):
+                    if unit.defence_turn <= unit.defence_max_turn:
+                        unit.defence_turn += 1
+
     def respawn(self):
         if self.respawn_list != {}:
             for unit in self.respawn_list:
@@ -161,7 +173,7 @@ class Game:
                 main_map += "#\n"
             k += 1
 
-        for j, row in enumerate(self.map.values()):
+        for row in self.map.values():
             for i, field in enumerate(row):
                 if i == 0:
                     main_map += "#"
@@ -196,12 +208,14 @@ class Game:
     def main_loop(self):
         while True:
             self.__ai_1_script.main(self.apis[0])
+            self.control_unit_center(1)
             os.system("cls")
             self.render()
             time.sleep(5)
             if self.is_victory():
                 break
             self.__ai_2_script.main(self.apis[1])
+            self.control_unit_center(2)
             os.system("cls")
             self.render()
             time.sleep(5)
