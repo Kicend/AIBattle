@@ -9,6 +9,11 @@ class Robot:
         self.level = 1
         self.max_level = 3
         self.hp = 15 * self.level
+        self.defence_switch = False
+        self.defence_turn = 0
+        self.defence_max_turn = 5
+        self.defence = 10 * self.defence_turn
+        self.miss_chance = 5 * self.defence_turn
         self.status = "alive"
         self.attackable = True
         self.regenerate_rate = self.level - 1
@@ -16,7 +21,7 @@ class Robot:
         self.attack_range = 1
         self.min_dmg = 1
         self.max_dmg = 3
-        self.critical_chance = 0.05
+        self.critical_chance = 5
         self.xp = 0
         self.xp_to_next_level = 10 * self.level
         self.xp_to_earn = 5 * self.level
@@ -37,9 +42,17 @@ class Robot:
 
     def attack(self):
         self.actions = 0
-        dmg = randint(self.min_dmg, self.max_dmg)
+        if randint(0, 99) <= self.critical_chance:
+            dmg = randint(self.min_dmg, self.max_dmg) * 3
+        else:
+            dmg = randint(self.min_dmg, self.max_dmg)
 
         return dmg
 
     def defend(self):
-        pass
+        if self.defence_switch:
+            self.defence_turn = 0
+            self.defence_switch = False
+        else:
+            self.defence_turn += 1
+            self.defence_switch = True
