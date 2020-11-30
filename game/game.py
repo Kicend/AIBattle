@@ -78,11 +78,15 @@ class Game:
     def control_unit_center(self, player: int):
         if player == 1:
             for unit in self.player_1_units:
+                if hasattr(unit, "actions"):
+                    unit.actions = unit.max_actions
                 if hasattr(unit, "defend"):
                     if unit.defence_turn <= unit.defence_max_turn:
                         unit.defence_turn += 1
         else:
             for unit in self.player_2_units:
+                if hasattr(unit, "actions"):
+                    unit.actions = unit.max_actions
                 if hasattr(unit, "defend"):
                     if unit.defence_turn <= unit.defence_max_turn:
                         unit.defence_turn += 1
