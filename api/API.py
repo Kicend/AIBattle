@@ -16,13 +16,19 @@ class API:
                 self.__units_registry[unit.uid] = unit
                 self.units_list.append(unit.uid)
 
-    def get_unit_info(self, uid: str):
+    def team(self):
+        return self.__team
+
+    def units_list(self):
+        return self.__units_registry
+
+    def unit_info(self, uid: str):
         if not self.__units_registry:
             self.__create_registry()
 
         return self.__units_registry[uid].__dict__
 
-    def check_units_orders(self, uid: str):
+    def unit_orders(self, uid: str):
         return self.__units_registry[uid].orders
 
     def move(self, uid: str, coordinates: list):
