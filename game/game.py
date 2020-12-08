@@ -10,6 +10,10 @@ from game.units.robot import Robot
 from game.units.turret import Turret
 from api.API import API
 
+colors = {"RED": "\033[1;31;40m",
+          "BLUE": "\033[1;34;40m",
+          "ENDC": "\033[0m"}
+
 
 class Game:
     def __init__(self, cgi_status: bool, map_name: str, path_1: str, path_2: str):
@@ -199,7 +203,10 @@ class Game:
                     main_map += "#"
                 if field != "-":
                     unit = field
-                    main_map += unit.symbol
+                    if unit.team == 1:
+                        main_map += f"{colors['RED']}{unit.symbol}{colors['ENDC']}"
+                    else:
+                        main_map += f"{colors['BLUE']}{unit.symbol}{colors['ENDC']}"
                 else:
                     main_map += field
                 if i == len(row)-1:
@@ -231,13 +238,13 @@ class Game:
             self.control_unit_center(1)
             os.system("cls")
             self.render()
-            time.sleep(5)
+            time.sleep(2)
             if self.is_victory():
                 break
             self.__ai_2_script.main(self.apis[1])
             self.control_unit_center(2)
             os.system("cls")
             self.render()
-            time.sleep(5)
+            time.sleep(2)
             if self.is_victory():
                 break
