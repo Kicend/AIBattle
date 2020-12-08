@@ -127,10 +127,6 @@ class Game:
 
     # noinspection PyTypeChecker
     def preparing(self):
-        # Load API (create class instances)
-        api_1 = API(self, self.player_1_units, 1)
-        api_2 = API(self, self.player_2_units, 2)
-        self.apis.extend([api_1, api_2])
         # Load AI modules
         spec = importlib.util.spec_from_file_location("AI", self.__script_1_path)
         self.__ai_1_script = importlib.util.module_from_spec(spec)
@@ -179,6 +175,11 @@ class Game:
                     break
             self.player_1_units.append(robot_1)
             self.player_2_units.append(robot_2)
+
+        # Load API (create class instances)
+        api_1 = API(self, self.player_1_units, 1)
+        api_2 = API(self, self.player_2_units, 2)
+        self.apis.extend([api_1, api_2])
 
         self.main_loop()
 

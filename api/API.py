@@ -9,6 +9,7 @@ class API:
         self.__team = team
         self.__units_registry = {}
         self.units_list = []
+        self.__create_registry()
 
     def __create_registry(self):
         if not self.__units_registry:
@@ -23,9 +24,6 @@ class API:
         return self.__units_registry
 
     def unit_info(self, uid: str):
-        if not self.__units_registry:
-            self.__create_registry()
-
         return self.__units_registry[uid].__dict__
 
     def unit_orders(self, uid: str):
