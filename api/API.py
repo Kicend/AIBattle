@@ -31,6 +31,9 @@ class API:
     def unit_orders(self, uid: str):
         return self.__units_registry[uid].orders
 
+    def scan(self, coordinates: list, scope: int):
+        return self.__game.scan(coordinates, scope)
+
     def move(self, uid: str, coordinates: list):
         if self.__game.check_field(coordinates):
             if self.__units_registry[uid].move(coordinates):

@@ -75,6 +75,21 @@ class Game:
         else:
             return y_distance
 
+    def scan(self, coordinates: list, scope: int):
+        x = coordinates[0]
+        y = coordinates[1]
+        objects_list = []
+
+        for i in range(x-scope, x+scope):
+            for j, field in enumerate(self.map[y]):
+                if j <= scope:
+                    if field != "-":
+                        objects_list.append(field)
+                else:
+                    break
+
+        return objects_list
+
     def control_unit_center(self, player: int):
         if player == 1:
             for unit in self.player_1_units:
