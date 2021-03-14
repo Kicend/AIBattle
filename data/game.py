@@ -4,10 +4,10 @@ import time
 import os
 from math import fabs
 from random import randint
-from game.units.hq import HQ
-from game.units.magnus import Magnus
-from game.units.robot import Robot
-from game.units.turret import Turret
+from data.units.hq import HQ
+from data.units.magnus import Magnus
+from data.units.robot import Robot
+from data.units.turret import Turret
 from api.API import API
 
 colors = {"RED": "\033[1;31;40m",
@@ -148,21 +148,24 @@ class Game:
         m_1 = None
         m_2 = None
         for i in range(4):
-            if i <= 1:
-                m_1 = Magnus(f"M_1@{i+1}", self.map_info["M_1"][i], 1)
-                self.map[m_1.coordinates[0]][m_1.coordinates[1]] = m_1
-                m_2 = Magnus(f"M_2@{i+1}", self.map_info["M_2"][i], 2)
-                self.map[m_2.coordinates[0]][m_2.coordinates[1]] = m_2
-            t_1 = Turret(f"T_1@{i+1}", self.map_info["T_1"][i], 1)
-            self.map[t_1.coordinates[0]][t_1.coordinates[1]] = t_1
-            t_2 = Turret(f"T_2@{i + 1}", self.map_info["T_2"][i], 2)
-            self.map[t_2.coordinates[0]][t_2.coordinates[1]] = t_2
-            self.player_1_units.extend([m_1, t_1])
-            self.player_2_units.extend([m_2, t_2])
+            try:
+                if i <= 1:
+                    m_1 = Magnus(f"M_1@{i+1}", self.map_info["M_1"][i], 1)
+                    self.map[m_1.coordinates[0]][m_1.coordinates[1]] = m_1
+                    m_2 = Magnus(f"M_2@{i+1}", self.map_info["M_2"][i], 2)
+                    self.map[m_2.coordinates[0]][m_2.coordinates[1]] = m_2
+                t_1 = Turret(f"T_1@{i+1}", self.map_info["T_1"][i], 1)
+                self.map[t_1.coordinates[0]][t_1.coordinates[1]] = t_1
+                t_2 = Turret(f"T_2@{i + 1}", self.map_info["T_2"][i], 2)
+                self.map[t_2.coordinates[0]][t_2.coordinates[1]] = t_2
+                self.player_1_units.extend([m_1, t_1])
+                self.player_2_units.extend([m_2, t_2])
+            except IndexError:
+                pass
 
         # TODO: Rozmieszczenie flag
 
-        for i in range(self.map_info["MAX_UNIT_NUMBER"] - 7):
+        for i in range(self.map_info["MAX_UNIT_NUMBER"]):
             while True:
                 x = randint(0, self.map_info["size"][0] - 1)
                 y = 0

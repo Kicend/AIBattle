@@ -33,9 +33,8 @@ class Robot:
         self.orders = ("move", "attack", "defend")
 
     def move(self, coordinates: list):
-        if fabs(coordinates[0] - self.coordinates[0]) <= self.actions and \
-           fabs(coordinates[1] - self.coordinates[1]) <= self.actions:
-            self.actions -= fabs(coordinates[0] - self.coordinates[0])
+        if fabs(coordinates[0] - self.coordinates[0]) + fabs(coordinates[1] - self.coordinates[1]) <= self.actions:
+            self.actions -= fabs(coordinates[0] - self.coordinates[0]) + fabs(coordinates[1] - self.coordinates[1])
             return True
         else:
             return False

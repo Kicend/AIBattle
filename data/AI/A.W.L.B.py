@@ -10,9 +10,12 @@ def main(api):
                 i = 0
                 while True:
                     try:
-                        api.move(unit, [coordinates[0]+randint(-1, 1), coordinates[1]+randint(-1, 1)])
-                        if i == 3:
+                        if i >= 3:
                             api.defend(unit)
+                        else:
+                            x = randint(-2, 2)
+                            y = randint(-2, 2)
+                            api.move(unit, [coordinates[0]+x, coordinates[1]+y])
                         break
                     except (errors.MoveError, KeyError, IndexError):
                         pass

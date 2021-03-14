@@ -33,7 +33,7 @@ class API:
         return self.__game.scan(coordinates, scope)
 
     def move(self, uid: str, coordinates: list):
-        if self.__game.check_field(coordinates) and coordinates[0] > 0 and coordinates[1] > 0:
+        if self.__game.check_field(coordinates) and coordinates[0] > -1 and coordinates[1] > -1:
             if self.__units_registry[uid].move(coordinates):
                 self.__game.map[self.__units_registry[uid].coordinates[0]][self.__units_registry[uid].coordinates[1]] \
                     = "-"
